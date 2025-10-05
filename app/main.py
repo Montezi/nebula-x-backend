@@ -6,12 +6,13 @@ from .services.exoplanets import init_db
 
 app = FastAPI(title=config.API_NAME, version=config.API_VERSION)
 
+# CORS precisa do app já criado
 add_cors(app)
 
 # Inicializa mock (ou carregamento inicial)
 init_db()
 
-# monta as rotas
+# Rotas
 app.include_router(health.router)
 app.include_router(exoplanets.router)
 app.include_router(analysis.router)
