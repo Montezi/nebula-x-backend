@@ -1,19 +1,23 @@
-import time
 from typing import List
-from ..schemas.analysis import LightCurvePoint, TrainResponse, LightCurveAnalysis
-
-def train_model() -> TrainResponse:
-    time.sleep(0.25)  # simula tempo de treino
-    import random
-    acc = round(random.uniform(0.7, 0.95), 2)
-    return TrainResponse(message="Modelo treinado com sucesso", accuracy=acc)
+from ..schemas.analysis import LightCurvePoint, LightCurveAnalysis
 
 def analyze_lightcurve(points: List[LightCurvePoint]) -> LightCurveAnalysis:
-    if not points:
+    """Análise simplificada de curva de luz para demonstração"""
+    if not points or len(points) < 10:
         return LightCurveAnalysis(transits=0, confidence=0.0)
-    values = [p.flux for p in points]
-    mean = sum(values) / len(values)
-    var = sum((v - mean) ** 2 for v in values) / len(values)
-    conf = max(0.6, min(0.95, 1.0 - min(var, 1.0) * 0.2))
-    transits = 1 if var > 0.005 else 0
-    return LightCurveAnalysis(transits=transits, confidence=round(conf, 2))
+    
+    # Lógica simplificada para demo
+    fluxes = [p.flux for p in points]
+    mean_flux = sum(fluxes) / len(fluxes)
+    variance = sum((f - mean_flux) ** 2 for f in fluxes) / len(fluxes)
+    
+    # Calcula confiança baseada na variância
+    confidence = max(0.3, 0.9 - (variance * 5))
+    
+    # Detecta trânsitos baseado em picos de variância
+    transits = 1 if variance > 0.001 else 0
+    
+    return LightCurveAnalysis(
+        transits=transits, 
+        confidence=round(confidence, 2)
+    )

@@ -16,3 +16,15 @@ class Exoplanet(BaseModel):
     habitable_zone: bool
     prediction: Optional[Status] = None
     confidence: Optional[float] = None
+
+class MLTrainingRequest(BaseModel):
+    use_nasa_data: bool = True
+    sample_size: int = 100
+
+class PredictionRequest(BaseModel):
+    period: float
+    radius: float
+    temperature: int
+    discovery_year: int
+    habitable_zone: bool
+    confidence: float = 0.5

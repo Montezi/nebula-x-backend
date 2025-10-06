@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/exoplanets", response_model=List[Exoplanet])
 def get_exoplanets(
-    mission: Optional[Mission] = Query(None),
+    mission: Optional[Mission] = Query(None), 
     status: Optional[Status] = Query(None),
     limit: int = Query(100, ge=1, le=500),
     offset: int = Query(0, ge=0),
@@ -15,5 +15,5 @@ def get_exoplanets(
     return list_exoplanets(mission, status, limit, offset)
 
 @router.get("/exoplanets/refresh", response_model=List[Exoplanet])
-def refresh_exoplanets():
-    return refresh()
+async def refresh_exoplanets():  
+    return await refresh()  
