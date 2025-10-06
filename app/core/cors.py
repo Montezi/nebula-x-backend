@@ -12,10 +12,10 @@ def add_cors(app):
     
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=origins,
-        allow_credentials=True,
+        allow_origins=["*"],
+        allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
     )
     
-    print(f"✅ CORS configurado para origens: {origins}")
+    print(f"✅ CORS configurado para todas as origens")
